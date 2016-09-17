@@ -15,8 +15,20 @@ class CreateHallsTable extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('name')
-        }
+            $table->integer('user_id')->unsigned();
+            $table->string('name')->unique();
+            $table->text('description');
+            $table->string('address');
+            $table->string('area');
+            $table->string('state');
+            $table->integer('price');
+            $table->string('image')->nullable();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+        });
     }
 
     /**

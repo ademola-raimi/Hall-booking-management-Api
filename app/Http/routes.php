@@ -11,10 +11,44 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers/Auth'], function () use ($app) {
+    $app->get('/', function () use ($app) {
+            return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
+    });
+    
+    $app->post('register', [
+            'uses' => 'AuthController@postRegister',
+    ]);
+
+    $app->post('login', [
+            'uses' => 'AuthController@authenticate',
+    ]);
 });
 
-$app->get('/key', function() {
-    return str_random(32);
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'regular.user'], function () use ($app) {
+	$app->get('halls', [
+		'uses' => 'HallController@getHalls',
+	]);
+
+	$app->get('hall/{id}', [
+		'uses' => 'HallController@getHallById',
+	]);
+});
+
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'admin.user'], function () use ($app) {
+	$app->post('hall', [
+		'uses' => 'HallController@createHall',
+	]);
+
+	$app->put('hall', [
+		'uses' => 'HallController@updateHallByPut',
+	]);
+
+	$app->patch('hall', [
+		'uses' => 'HallController@updateHallByPatch',
+	]);
+});
+
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'super-admin.user'], function () use ($app) {
+
 });

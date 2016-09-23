@@ -11,10 +11,10 @@ class ExampleTest extends TestCase
      */
     public function testExample()
     {
-        $this->get('/');
+        $this->get('/api/v1');
 
         $this->assertEquals(
-            $this->response->getContent(), $this->app->version()
+            $this->response->getContent(), '{"message":"Welcome to Hall Bookings and management platform"}'
         );
     }
 }

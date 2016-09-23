@@ -20,7 +20,7 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'username', 'email', 'password', 'access_level', 'first_name', 'last_name', 'api_token', 'avatar', 'provider', 'provider_id'
     ];
 
     /**
@@ -31,4 +31,49 @@ class User extends Model implements
     protected $hidden = [
         'password',
     ];
+
+     /**
+     * Get the avatar from gravatar.
+     *
+     * @return string
+     */
+    private function getAvatarFromGravatar()
+    {
+        return 'http://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email))).'?d=mm&s=500';
+    }
+
+    /**
+     * Get avatar from the model.
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        if (!is_null($this->avatar)) { 
+            return $this->avatar;
+        } else {
+            return $this->getAvatarFromGravatar();
+        }
+    }
+
+    /**
+     * Update user avatar
+     *
+     * return void
+     */
+    public function updateAvatar($url)
+    {
+        $this->avatar = $url;
+        $this->save();
+    }
+
+    /**
+     * A user has many videos
+     *
+     * @return object
+     */
+    public function halls()
+    {
+        return $this->hasMany('App\Hall');
+    }
 }

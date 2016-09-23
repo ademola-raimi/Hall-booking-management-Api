@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('access_level', ['regular', 'admin', 'super_admin']);
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('api_token');
             $table->string('avatar')->nullable();
             $table->string('provider')->nullable();
             $table->integer('provider_id')->nullable();

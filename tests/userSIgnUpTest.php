@@ -8,6 +8,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 class UserSignUpTest extends TestCase
 {
     use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
      * Test that user sign up successfully

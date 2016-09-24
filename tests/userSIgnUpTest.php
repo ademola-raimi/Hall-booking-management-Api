@@ -1,5 +1,6 @@
 <?php
 
+use App\user;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;

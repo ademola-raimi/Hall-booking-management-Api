@@ -45,6 +45,7 @@ class UserSignUpTest extends TestCase
         ]);
 
         $json = json_decode($response->getContent());
+        dd($response);
         $this->seeStatusCode(201);
         $this->assertEquals(
             $this->response->getContent(), '{"message":"Registration was successful"}'

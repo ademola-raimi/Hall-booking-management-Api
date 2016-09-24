@@ -43,7 +43,7 @@ class UserSignUpTest extends TestCase
         ]);
 
         $json = json_decode($response->getContent());
-
+        
         $this->seeStatusCode(201);
         $this->assertEquals(
             $this->response->getContent(), '{"username":["The username field is required."],"email":["The email field is required."],"password":["The password field is required."],"first_name":["The first name field is required."],"last_name":["The last name field is required."]}'

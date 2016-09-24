@@ -11,7 +11,7 @@
 |
 */
 
-$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers/Auth'], function () use ($app) {
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
     $app->get('/', function () use ($app) {
             return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
     });

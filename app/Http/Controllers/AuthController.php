@@ -1,48 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Auth;
 use Hash;
 use Alert;
 use App\User;
-use Validator;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
     /**
      * This method post new users.
      *
      * @return new user
      */
-    private function postRegister(Request $request)
+    public function postRegister(Request $request)
     {
         $this->validate($request, [
             'username' => 'required|unique:users',
             'email'    => 'required',
             'password' => 'required',
-            'access_level' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
         ]);
 
         $user = User::create([
             'username'     => $request->username,
-            'email'        => $request->name,
+            'email'        => $request->email,
             'password'     => password_hash($request->password, PASSWORD_DEFAULT),
-            'access_level' => $request->access_level,
             'first_name'   => $request->first_name,
             'last_name'    => $request->last_name,
             'api_token'    => $this->generateToken(),
-            'avatar'       => $request->avatar,
             'provider'     => $request->provider,
+            'avatar'       => $request->avatar,
             'provider_id'  => $request->provider_id,
         ]);
 
@@ -88,7 +81,7 @@ class AuthController extends Controller
             'email'    => 'required',
         ]);
 
-        $authStatus = (Auth::attempt(['username' => $email, 'password' => $password])) 
+        $authStatus = (Auth::attempt(['username' => $email, 'password' => $password]));
 
         if ($authStatus) {
             return response()->json(['message' => 'Authentication was successful'], 201);

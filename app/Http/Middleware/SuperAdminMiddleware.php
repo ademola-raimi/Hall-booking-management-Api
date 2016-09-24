@@ -11,9 +11,9 @@ class SuperAdminMiddleware
      * declaring constant signifying to compare to the role_id
      *
     */
-    const REGULAR_USER       = 'regular';
-    const ADMIN_USER         = 'admin';
-    const SUPER_ADMIN_USER   = 'super_admin';
+    const REGULAR_USER       = 1;
+    const ADMIN_USER         = 2;
+    const SUPER_ADMIN_USER   = 3;
 
     /**
      * Handle an incoming request.

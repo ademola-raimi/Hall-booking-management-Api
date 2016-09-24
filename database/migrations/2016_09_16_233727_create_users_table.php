@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->nullable();
             $table->string('password');
-            $table->enum('access_level', ['regular', 'admin', 'super_admin']);
+            $table->integer('role_id')->default(1);
+            //$table->enum('access_level', ['regular', 'admin', 'super_admin']);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('api_token');

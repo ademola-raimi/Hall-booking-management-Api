@@ -19,8 +19,4 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
     $app->post('register', [
             'uses' => 'AuthController@postRegister',
     ]);
-
-    $app->post('login', [
-            'uses' => 'AuthController@authenticate',
-    ]);
 });

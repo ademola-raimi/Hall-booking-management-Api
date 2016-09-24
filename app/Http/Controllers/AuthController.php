@@ -68,24 +68,4 @@ class AuthController extends Controller
         
         return JWT::encode($token, $appSecret, $jwtAlgorithm);
     }
-
-     /**
-     * Handle an authentication attempt.
-     *
-     * @return Response
-     */
-    public function authenticate(Request $request)
-    {
-        $this->validate($request, [
-            'username' => 'required|unique:users',
-            'email'    => 'required',
-        ]);
-
-        $authStatus = (Auth::attempt(['username' => $email, 'password' => $password]));
-
-        if ($authStatus) {
-            return response()->json(['message' => 'Authentication was successful'], 201);
-        }
-        return response()->json(['message' => 'Oops, Authentication was Unsuccessful'], 400);
-    }
 }

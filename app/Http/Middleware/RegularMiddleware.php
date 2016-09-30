@@ -4,17 +4,17 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\User;
+use App\Http\StatusCode;
+use App\Http\Middleware\Constant;
 
-class RegularMiddleware
+class RegularMiddleware extends SuperAdminMiddleware
 {
-    /**
-     * declaring constant signifying to compare to the role_id
-     *
-    */
-    const REGULAR_USER       = 1;
-    const ADMIN_USER         = 2;
-    const SUPER_ADMIN_USER   = 3;
+    protected $statusCode;
 
+    public function __construct(StatusCode $statusCode)
+    {
+        $this->statusCode = $statusCode;
+    }
     /**
      * Handle an incoming request.
      *
@@ -22,25 +22,18 @@ class RegularMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+
+    public function readHandle()
     {
-        $token = $request->query('token');
+        return handle($request, $next);
+    }
 
-        if (!empty($token)) {
-            $appToken = User::where('api_token', '=', $token)
-                ->first();
-
-            if (is_null($appToken)) {
-                return response()->json(['message' => 'User unauthorized due to invalid token'], 401);
-            }
-
-            if ($appToken->access_level == self::REGULAR_USER || $appToken->access_level == self::ADMIN_USER || $appToken->access_level == self::SUPER_ADMIN_USER) {
+    public function checkUser($request, $appToken, $next)
+    {
+        if ($appToken->role_id >= $appToken->role_id == Constant::SUPER_ADMIN_USER) {
                 return $next($request);
             }
-
-            return response()->json(['message' => 'User unauthorized due to limited token'], 401);
-        }
-
-        return response()->json(['message' => 'User unauthorized due to empty token'], 401);
+            
+        return response()->json(['message' => 'User unauthorized due to invalid token'], $this->statusCode->unauthorised);
     }
 }

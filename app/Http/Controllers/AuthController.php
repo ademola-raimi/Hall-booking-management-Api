@@ -8,10 +8,17 @@ use Alert;
 use App\User;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
+use App\Http\StatusCode;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
+    protected $statusCode;
+
+    public function __construct(StatusCode $statusCode)
+    {
+        $this->statusCode = $statusCode;
+    }
     /**
      * This method post new users.
      *
@@ -40,10 +47,10 @@ class AuthController extends Controller
         ]);
 
         if ($user) {
-            return response()->json(['message' => 'Registration was successful'], 201);
+            return response()->json(['message' => 'Registration was successful'], $this->statusCode->created);
         }
 
-        return response()->json(['message' => 'Oops, Registration was Unsuccessful'], 400);
+        return response()->json(['message' => 'Oops, Registration was Unsuccessful'], $this->statusCode->unauthorised);
     }
 
     /**

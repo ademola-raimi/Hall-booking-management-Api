@@ -17,14 +17,11 @@ class UserSignUpTest extends TestCase
     {
         $user = factory('App\User')->create();
 
-        $response = $this->call('POST', '/api/v1/register', [
-            
-        ]);
+        $response = $this->call('POST', '/api/v1/register', []);
 
-        $json = json_decode($response->getContent());
-
+        $json = $response->getContent();
         $this->assertEquals(
-            $this->response->getContent(), '{"username":["The username field is required."],"email":["The email field is required."],"password":["The password field is required."],"first_name":["The first name field is required."],"last_name":["The last name field is required."]}'
+            $json, '{"username":["The username field is required."],"email":["The email field is required."],"password":["The password field is required."],"first_name":["The first name field is required."],"last_name":["The last name field is required."]}'
         );
     }
 
@@ -44,11 +41,11 @@ class UserSignUpTest extends TestCase
             'provider_id'  => '',
         ]);
 
-        $json = json_decode($response->getContent());
+        $json = $response->getContent();
 
         $this->seeStatusCode(201);
         $this->assertEquals(
-            $this->response->getContent(), '{"message":"Registration was successful"}'
+            $json, '{"message":"Registration was successful"}'
         );
     }
 
@@ -74,9 +71,9 @@ class UserSignUpTest extends TestCase
             'provider_id'  => '',
         ]);
 
-        $json = json_decode($response->getContent());
+        $json = $response->getContent();
         $this->assertEquals(
-            $this->response->getContent(), '{"username":["The username has already been taken."]}'
+            $json, '{"username":["The username has already been taken."]}'
         );
     }
 }

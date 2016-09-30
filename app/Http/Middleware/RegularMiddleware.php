@@ -30,7 +30,7 @@ class RegularMiddleware extends SuperAdminMiddleware
 
     public function checkUser($request, $appToken, $next)
     {
-        if ($appToken->role_id >= $appToken->role_id == Constant::SUPER_ADMIN_USER) {
+        if ($appToken->role_id >= Constant::SUPER_ADMIN_USER) {
                 return $next($request);
             }
             

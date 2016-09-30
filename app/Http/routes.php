@@ -21,21 +21,3 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
             'uses' => 'AuthController@postRegister',
     ]);
 });
-
-$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'superAdmin.user'], function () use ($app) {
-    $app->get('/test/1', function () use ($app) {
-            return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
-    });
-});
-
-$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'admin.user'], function () use ($app) {
-    $app->get('/test/2', function () use ($app) {
-            return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
-    });
-});
-
-$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers', 'middleware' => 'regular.user'], function () use ($app) {
-    $app->get('/test/3', function () use ($app) {
-            return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
-    });
-});

@@ -23,8 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('api_token');
             $table->string('avatar')->nullable();
-            $table->string('provider')->nullable();
-            $table->integer('provider_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -41,9 +41,7 @@ class AuthController extends Controller
             'first_name'   => $request->first_name,
             'last_name'    => $request->last_name,
             'api_token'    => $this->generateToken(),
-            'provider'     => $request->provider,
             'avatar'       => $request->avatar,
-            'provider_id'  => $request->provider_id,
         ]);
 
         if ($user) {

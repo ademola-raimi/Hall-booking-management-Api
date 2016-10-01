@@ -17,7 +17,6 @@ $factory->define(App\User::class, function ($faker) {
         'first_name'      => $faker->name,
         'last_name'       => $faker->name,
         'email'           => $faker->email,
-        'provider'        => $faker->name,
         'role_id'         => '1',
         'api_token'       => str_random(10),
         'password'        => password_hash(str_random(10), PASSWORD_DEFAULT),

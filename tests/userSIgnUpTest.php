@@ -37,8 +37,6 @@ class UserSignUpTest extends TestCase
             'last_name'    => 'Raimi',
             'role_id'      => 1,
             'avatar'       => 'https://en.gravatar.com/userimage/102347280/b3e9c138c1548147b7ff3f9a2a1d9bb0.png?size=200',
-            'provider'     => '',
-            'provider_id'  => '',
         ]);
 
         $json = $response->getContent();
@@ -67,8 +65,6 @@ class UserSignUpTest extends TestCase
             'last_name'    => 'Raimi',
             'role_id'      => 1,
             'avatar'       => 'https://en.gravatar.com/userimage/102347280/b3e9c138c1548147b7ff3f9a2a1d9bb0.png?size=200',
-            'provider'     => '',
-            'provider_id'  => '',
         ]);
 
         $json = $response->getContent();

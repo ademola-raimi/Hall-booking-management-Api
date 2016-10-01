@@ -15,6 +15,9 @@ script:
   - mkdir -p build/logs
   - php vendor/bin/phpunit -c phpunit.xml
 
+notifications:
+  slack: cutcode:DU2WYQ5RGD4bBlXxsXeRPUki
+
 after_success:
     - travis_retry php vendor/bin/coveralls
     # or enable logging

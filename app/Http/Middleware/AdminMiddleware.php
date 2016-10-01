@@ -33,7 +33,7 @@ class AdminMiddleware extends SuperAdminMiddleware
         if ($appToken->role_id <= Constant::ADMIN_USER) {
                 return $next($request);
             }
-            
+  
         return response()->json(['message' => 'User unauthorized due to invalid token'], $this->statusCode->unauthorised);
     }
 }

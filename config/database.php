@@ -70,7 +70,16 @@ return [
             'timezone'  => env('DB_TIMEZONE', '+00:00'),
             'strict'    => env('DB_STRICT_MODE', false),
         ],
-
+        'pgsql' => [
+            'driver'   => 'pgsql',
+            'host'     => env('DB_HOST', 'localhost'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ],
     ],
 
     /*

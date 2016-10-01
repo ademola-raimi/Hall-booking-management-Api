@@ -6,7 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements
+class Hall extends Model implements
 {
     /**
      * The attributes that are mass assignable.

@@ -33,10 +33,14 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "php artisan migrate --force"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan migrate --force",
+            "php artisan optimize"
         ],
         "post-update-cmd": [
-            "php artisan migrate"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan migrate",
+            "php artisan optimize"
         ]
     },
     "config": {

@@ -7,7 +7,7 @@ use Closure;
 use App\Http\StatusCode;
 use App\Http\Middleware\Constant;
 
-class SuperAdminMiddleware
+class SuperAdminMiddleware extends Authenticate
 {
     protected $statusCode;
 

@@ -10,11 +10,14 @@ use App\Http\Middleware\Constant;
 class SuperAdminMiddleware extends Authenticate
 {
     protected $statusCode;
+    protected $handle;
 
-    public function __construct(StatusCode $statusCode)
+    public function __construct(StatusCode $statusCode, Handle $handle)
     {
         $this->statusCode = $statusCode;
+        $this->handle = $handle;
     }
+
     /**
      * Handle an incoming request.
      *
@@ -22,29 +25,27 @@ class SuperAdminMiddleware extends Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function readHandle($request, Closure $next)
     {
         $token = $request->query('token');
-        
-        if (!empty($token)) {
-            $appToken = User::where('api_token', '=', $token)
-                ->first();
+            
+            if (!empty($token)) {
+                $appToken = User::where('api_token', '=', $token)
+                    ->first();
 
-            if (is_null($appToken)) {
-                return response()->json(['message' => 'User unauthorized due to invalid token'], $this->statusCode->unauthorised);
+                if (is_null($appToken)) {
+                    return response()->json(['message' => 'User unauthorized due to invalid token'], $this->statusCode->unauthorised);
+                }
+
+                return $this->checkUser($request, $appToken, $next);
             }
-
-            return $this->checkUser($request, $appToken, $next);
-        }
-
-        return response()->json(['message' => 'User unauthorized due to empty token'], $this->statusCode->unauthorised);
     }
 
     public function checkUser($request, $appToken, $next)
     {
         if ($appToken->role_id === Constant::SUPER_ADMIN_USER) {
                 return $next($request);
-            }
+        }
 
         return response()->json(['message' => 'User unauthorized due to invalid token'], $this->statusCode->unauthorised);
     }

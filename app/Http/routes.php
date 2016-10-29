@@ -21,9 +21,3 @@ $app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], funct
             'uses' => 'AuthController@postRegister',
     ]);
 });
-
-$app->group(['prefix' => 'api/v1', 'middleware' => 'admin.user'], function () use ($app) {
-    $app->get('/test', function () use ($app) {
-            return json_encode(["message" => "Baba nla ooo"]);
-    });
-});

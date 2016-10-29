@@ -6,16 +6,19 @@ use App\User;
 use Closure;
 use App\Http\StatusCode;
 use App\Http\Middleware\Constant;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 class SuperAdminMiddleware extends Authenticate
 {
     protected $statusCode;
     protected $handle;
+    protected $auth;
 
-    public function __construct(StatusCode $statusCode, Handle $handle)
+    public function __construct(StatusCode $statusCode, Handle $handle, Auth $auth)
     {
         $this->statusCode = $statusCode;
-        $this->handle = $handle;
+        $this->handle     = $handle;
+        $this->auth       = $auth;
     }
 
     /**

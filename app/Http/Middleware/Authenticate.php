@@ -39,6 +39,6 @@ class Authenticate
             return response('Unauthorized.', 401);
         }
 
-        return $next($request);
+        return $this->readHandle($request, $next);
     }
 }

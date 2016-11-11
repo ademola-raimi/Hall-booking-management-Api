@@ -11,10 +11,13 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
-});
 
-$app->get('/key', function() {
-    return str_random(32);
+$app->group(['prefix' => 'api/v1', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+    $app->get('/', function () use ($app) {
+            return json_encode(["message" => "Welcome to Hall Bookings and management platform"]);
+    });
+    
+    $app->post('register', [
+            'uses' => 'AuthController@postRegister',
+    ]);
 });

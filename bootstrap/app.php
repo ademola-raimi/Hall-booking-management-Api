@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -60,12 +60,16 @@ $app->singleton(
 */
 
 // $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
+//    'admin'      => App\Http\Middleware\RegularUserMiddleware::class,
+//    'superadmin' => App\Http\Middleware\AdminUserMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    // 'auth'            => App\Http\Middleware\Authenticate::class,
+    'admin.user'      => App\Http\Middleware\AdminMiddleware::class,
+    'regular.user'    => App\Http\Middleware\RegularMiddleware::class,
+    'superAdmin.user' => App\Http\Middleware\SuperAdminMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +82,9 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
